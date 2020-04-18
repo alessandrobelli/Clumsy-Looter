@@ -8,7 +8,7 @@ public class Destroyer : MonoBehaviour
     {
         if (!other.CompareTag("Wall") || other.CompareTag("Player") || other.CompareTag("Enemy"))
         {
-            Debug.Log(other.tag);
+
             Destroy(other.gameObject);
         }
     }

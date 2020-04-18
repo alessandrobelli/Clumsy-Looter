@@ -19,7 +19,7 @@ public class RoomSpawner : MonoBehaviour
     public Opening openingDirection;
     public bool spawned = false;
 
-    public float waitTime = 4f;
+    public float waitTime = 2f;
 
     private RoomTemplates templates;
     private int rand;
@@ -81,6 +81,7 @@ public class RoomSpawner : MonoBehaviour
             }
             catch (System.Exception e)
             {
+                Debug.Log("e");
                 Destroy(gameObject);
             }
             spawned = true;
