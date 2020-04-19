@@ -11,7 +11,7 @@ namespace Com.Nudi.Fpsproject
 
         public void Play()
         {
-            SceneManager.LoadScene("GameScene");
+            SceneManager.LoadScene(1);
             // if not multiplayer
             // unity engine scene management + scenemanager loadscene
         }

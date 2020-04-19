@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class RoomSpawner : MonoBehaviour
+public class RoomSpawner : Keep
 {
 
     # region Variables
@@ -19,7 +19,7 @@ public class RoomSpawner : MonoBehaviour
     public Opening openingDirection;
     public bool spawned = false;
 
-    public float waitTime = 2f;
+    public float waitTime = 0.2f;
 
     private RoomTemplates templates;
     private int rand;
@@ -27,12 +27,16 @@ public class RoomSpawner : MonoBehaviour
 
     #region Monobehavior Callbacks;
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+
+
         Destroy(gameObject, waitTime);
         Destroy(GameObject.Find("Destroyer"), waitTime);
         templates = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplates>();
         Invoke("Spawn", 0.1f);
+
+
     }
     #endregion
 
@@ -42,26 +46,28 @@ public class RoomSpawner : MonoBehaviour
         if (spawned == false)
         {
 
-
+            GameObject room = null;
             switch (openingDirection)
             {
                 case Opening.Bottom:
                     rand = Random.Range(0, templates.bottomRooms.Length);
-                    Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+                    room = Instantiate(templates.bottomRooms[rand], transform.position, templates.bottomRooms[rand].transform.rotation);
+
                     break;
                 case Opening.Top:
                     rand = Random.Range(0, templates.topRooms.Length);
-                    Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
+                    room = Instantiate(templates.topRooms[rand], transform.position, templates.topRooms[rand].transform.rotation);
                     break;
                 case Opening.Left:
                     rand = Random.Range(0, templates.leftRooms.Length);
-                    Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
+                    room = Instantiate(templates.leftRooms[rand], transform.position, templates.leftRooms[rand].transform.rotation);
                     break;
                 case Opening.Right:
                     rand = Random.Range(0, templates.rightRooms.Length);
-                    Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
+                    room = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                     break;
             }
+            DontDestroyOnLoad(room);
             spawned = true;
         }
 

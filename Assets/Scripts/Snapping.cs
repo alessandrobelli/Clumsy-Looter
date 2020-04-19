@@ -19,8 +19,9 @@ public class Snapping : MonoBehaviour
     }
     private void LateUpdate()
     {
-        if (edges.Length > 0)
+        if (edges.Length > 0 && player != null)
         {
+            
             if (player.transform.localPosition.y > edges[0].y)
             {
                 transform.position = transform.position + new Vector3(0, 10);

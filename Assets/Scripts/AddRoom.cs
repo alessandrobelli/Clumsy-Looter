@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class AddRoom : MonoBehaviour
+public class AddRoom : Keep
 {
 
     private RoomTemplates templates;
 
     // Start is called before the first frame update
-    void Start()
+    public override void Start()
     {
+        base.Start();
         templates = GameObject.FindGameObjectWithTag("Room").GetComponent<RoomTemplates>();
         templates.rooms.Add(this.gameObject);
 

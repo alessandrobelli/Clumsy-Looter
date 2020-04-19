@@ -53,3 +53,9 @@ TagManager:
   - name: GameObjects
     uniqueID: 781576105
     locked: 0
+  - name: BigPlayerEnemy
+    uniqueID: 2915330563
+    locked: 0
+  - name: UI
+    uniqueID: 953218401
+    locked: 0

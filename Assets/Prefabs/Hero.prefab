@@ -11,15 +11,15 @@ GameObject:
   - component: {fileID: 3038018897226078557}
   - component: {fileID: 3038018897226078530}
   - component: {fileID: 2999472286970535185}
+  - component: {fileID: 674021998932490640}
   - component: {fileID: 690396310590588474}
-  - component: {fileID: 8068433425628924347}
   m_Layer: 0
   m_Name: Hero
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &3038018897226078557
 Transform:
   m_ObjectHideFlags: 0
@@ -110,6 +110,20 @@ BoxCollider2D:
   serializedVersion: 2
   m_Size: {x: 1, y: 1}
   m_EdgeRadius: 0
+--- !u!114 &674021998932490640
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3038018897226078531}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a4f51f0ba1dd59c41b946390093d7cce, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  speed: 5
+  mainCamera: {fileID: 0}
 --- !u!50 &690396310590588474
 Rigidbody2D:
   serializedVersion: 4
@@ -131,22 +145,3 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 1
   m_Constraints: 4
---- !u!114 &8068433425628924347
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3038018897226078531}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4f51f0ba1dd59c41b946390093d7cce, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  speed: 6
-  mainCamera: {fileID: 0}
-  edges:
-  - {x: 0, y: 4.5}
-  - {x: 8.5, y: 0}
-  - {x: 0, y: -4.5}
-  - {x: -8.5, y: 0}

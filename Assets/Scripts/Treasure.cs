@@ -2,12 +2,14 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Treasure : MonoBehaviour
+public class Treasure : Keep
 {
-    // Start is called before the first frame update
-    void Start()
-    {
+    public Sprite openedTreasure;
 
+    // Start is called before the first frame update
+    public override void Start()
+    {
+        base.Start();
     }
 
     // Update is called once per frame
@@ -21,8 +23,11 @@ public class Treasure : MonoBehaviour
 
         if (other.CompareTag("Looter"))
         {
-            Debug.LogWarning("destroy");
-            Destroy(gameObject, 2f);
+            SpriteRenderer spriteRenderer = GetComponent<SpriteRenderer>();
+            spriteRenderer.sprite = openedTreasure;
+            Destroy(gameObject, 4f);
+            other.GetComponent<Looter>().lootedTreasure++;
+            PlayerPrefs.SetInt("lootedTreasures", other.GetComponent<Looter>().lootedTreasure);
         }
     }
 }
