@@ -146,8 +146,8 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 33375847}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -960.1201, y: -540.8, z: 0}
-  m_LocalScale: {x: 2.16, y: 2.16, z: 2.16}
+  m_LocalPosition: {x: -967, y: -540.8, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1927627748}
   m_RootOrder: 0
@@ -1709,8 +1709,8 @@ MonoBehaviour:
 
     Turn Based battle.
 
-    Protect Chris, he just wants to
-    loot the dungeon.'
+    Follow and protect Chris, he just
+    wants to loot the dungeon.'
 --- !u!222 &2084906199
 CanvasRenderer:
   m_ObjectHideFlags: 0
