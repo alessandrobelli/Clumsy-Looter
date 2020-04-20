@@ -7,10 +7,6 @@ public abstract class Keep : MonoBehaviour
 {
     static public bool wasCreated;
 
-    public virtual void Awake()
-    {
-        DontDestroyOnLoad(gameObject);
-    }
     public virtual void Start()
     {
         if (!wasCreated)

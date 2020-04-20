@@ -22,7 +22,7 @@ public class BattleHUD : MonoBehaviour
     public void SetHP(int hp)
     {
         hpSlider.value = hp;
-        if (hp < 40) GameObject.Find("Fill").GetComponent<Image>().color = Color.red;
+        if (hp < 40) hpSlider.GetComponentInParent<Image>().color = Color.red;
     }
 
 }

@@ -14,21 +14,14 @@ public class Looter : Keep
 
     public int lootedTreasure;
 
-    public override void Awake()
-    {
-        base.Awake();
-        DontDestroyOnLoad(transform.gameObject);
-    }
-
     public override void Start()
     {
         base.Start();
         pathfinding = GetComponent<Pathfinding.AIDestinationSetter>();
         InvokeRepeating("FindClosestTreasure", 0f, 3f);
-        CurrentHealth = MaxHealth;
-        PlayerPrefs.SetInt("playerHP", CurrentHealth);
 
-        PlayerPrefs.SetInt("lootedTreasures", 0);
+        CurrentHealth = MaxHealth;
+
         audioPlayer = gameObject.GetComponent<AudioSource>();
 
     }

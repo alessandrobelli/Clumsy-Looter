@@ -32,10 +32,6 @@ public class Monster : Keep
 "A full friday"
 };
 
-    public override void Awake()
-    {
-        DontDestroyOnLoad(transform.gameObject);
-    }
     // Start is called before the first frame update
     public override void Start()
     {

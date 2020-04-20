@@ -72,7 +72,6 @@ public class BattleSystem : MonoBehaviour
 
         yield return new WaitForSeconds(2f);
 
-        state = BattleState.PLAYERTURN;
         PlayerTurn();
     }
 
@@ -104,7 +103,7 @@ public class BattleSystem : MonoBehaviour
     IEnumerator EnemyTurn()
     {
         state = BattleState.ENEMYTURN;
-        while(state == BattleState.ENEMYTURN)
+        while (state == BattleState.ENEMYTURN)
         {
             audioPlayer.PlayOneShot(attack);
             playerHUD.SetHP(playerUnit.currentHP);
@@ -138,6 +137,7 @@ public class BattleSystem : MonoBehaviour
         {
             dialogueText.text = "You won the battle!";
             isDoingSomething = false;
+
             PlayerPrefs.DeleteKey("monsterName");
             PlayerPrefs.DeleteKey("monsterAttack");
             PlayerPrefs.DeleteKey("monsterLevel");
@@ -146,6 +146,7 @@ public class BattleSystem : MonoBehaviour
             GameObject.Find("Looter").GetComponent<Looter>().CurrentHealth = playerUnit.currentHP;
             GameObject.Find("Hero").GetComponent<Player>().killedMonsters++;
             PlayerPrefs.SetInt("killedMonsters", GameObject.Find("Hero").GetComponent<Player>().killedMonsters);
+
             Destroy(enemy);
 
             SceneManager.UnloadSceneAsync(2);
@@ -160,19 +161,22 @@ public class BattleSystem : MonoBehaviour
             GameObject.Find("Looter").GetComponent<Looter>().CurrentHealth = playerUnit.currentHP;
 
             SceneManager.UnloadSceneAsync("BattleScene");
+            SceneManager.UnloadSceneAsync("GameScene");
             SceneManager.LoadScene(0);
         }
     }
 
     void PlayerTurn()
     {
+        state = BattleState.PLAYERTURN;
+
         isDoingSomething = false;
         dialogueText.text = "Choose an action:";
     }
 
     IEnumerator PlayerHeal()
     {
-        playerUnit.Heal(Random.Range(30,45));
+        playerUnit.Heal(Random.Range(30, 45));
         isDoingSomething = true;
         playerHUD.SetHP(playerUnit.currentHP);
         dialogueText.text = "You feel renewed strength!";
@@ -185,7 +189,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnAttackButton()
     {
-        if (state != BattleState.PLAYERTURN && isDoingSomething)
+        if (state != BattleState.PLAYERTURN || isDoingSomething)
             return;
         isDoingSomething = true;
         StartCoroutine(PlayerAttack());
@@ -193,7 +197,7 @@ public class BattleSystem : MonoBehaviour
 
     public void OnHealButton()
     {
-        if (state != BattleState.PLAYERTURN)
+        if (state != BattleState.PLAYERTURN || isDoingSomething)
             return;
 
         StartCoroutine(PlayerHeal());

@@ -67,7 +67,6 @@ public class RoomSpawner : Keep
                     room = Instantiate(templates.rightRooms[rand], transform.position, templates.rightRooms[rand].transform.rotation);
                     break;
             }
-            DontDestroyOnLoad(room);
             spawned = true;
         }
 

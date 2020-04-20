@@ -36,9 +36,6 @@ public class GameController : Keep
         rt = GameObject.Find("Entry Room").GetComponent<RoomTemplates>();
         Invoke("populateRooms", rt.waitTime);
 
-
-
-
     }
 
     void populateRooms()
@@ -71,17 +68,27 @@ public class GameController : Keep
             loadingImage.SetActive(false);
             Looter.SetActive(true);
 
+            setUpPlayerPrefs();
+
             ResizePathFinder();
             Player.SetActive(true);
             gui.gameObject.SetActive(true);
             Camera.main.GetComponent<Snapping>().player = Player;
         }
 
+
+
+
+
+    }
+
+    private void setUpPlayerPrefs()
+    {
+        PlayerPrefs.SetInt("killedMonsters", Player.GetComponent<Player>().killedMonsters);
+        PlayerPrefs.SetInt("playerHP", Looter.GetComponent<Looter>().CurrentHealth);
+        PlayerPrefs.SetInt("lootedTreasures", 0);
         PlayerPrefs.SetInt("totalTreasures", totalTreasures);
         PlayerPrefs.SetInt("totalMonsters", totalMonsters);
-
-
-
     }
 
     private void Update()
@@ -103,9 +110,9 @@ public class GameController : Keep
             }
         }
 
-        if(PlayerPrefs.GetInt("lootedTreasures") == PlayerPrefs.GetInt("totalTreasures"))
+        if (!loading && PlayerPrefs.GetInt("lootedTreasures") == PlayerPrefs.GetInt("totalTreasures"))
         {
-            
+
             winText.SetActive(true);
             LoadLevelAfterDelay(7f);
         }

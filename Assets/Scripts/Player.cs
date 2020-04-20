@@ -19,7 +19,7 @@ public class Player : Keep
     public override void Start()
     {
         base.Start();
-        PlayerPrefs.SetInt("killedMonsters", killedMonsters);
+
 
         mainCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
