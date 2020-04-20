@@ -2616,7 +2616,7 @@ MonoBehaviour:
   closedRoom: {fileID: 8930245887833574012, guid: 92eb143720967a644ac50b883be16e24,
     type: 3}
   rooms: []
-  waitTime: 4
+  waitTime: 2
   boss: {fileID: 3038018897226078531, guid: ec165a29e07447a489279aed9e6d7561, type: 3}
 --- !u!1 &5922224800684166773
 GameObject:

@@ -18,8 +18,9 @@ public class GameController : Keep
     public GameObject[] monsters;
     public int numberOfMonstersInEachRoom;
     public GameObject winText;
+    public GameObject loseText;
 
-    public GameObject loadingImage;
+    public Canvas loadingCanvas;
     public float x_left = 0;
     public float x_right = 0;
     public float y_top = 0;
@@ -28,11 +29,12 @@ public class GameController : Keep
     private int totalMonsters;
     private int totalTreasures;
     public Canvas gui;
-
+    private GameObject t_monster;
     public override void Start()
     {
-
-        loadingImage.SetActive(true);
+        loseText.SetActive(false);
+        winText.SetActive(false);
+        loadingCanvas.gameObject.SetActive(true);
         rt = GameObject.Find("Entry Room").GetComponent<RoomTemplates>();
         Invoke("populateRooms", rt.waitTime);
 
@@ -53,27 +55,35 @@ public class GameController : Keep
                 else if (room.transform.position.y < y_bottom) y_bottom = room.transform.position.y;
 
                 GameObject justSpawnedTreasure = Instantiate(treasure, new Vector3(Random.Range(room.transform.position.x - 5, room.transform.position.x + 5), Random.Range(room.transform.position.y - 2, room.transform.position.y + 2)), Quaternion.identity);
-
+               
                 for (int i = 0; i < numberOfMonstersInEachRoom; i++)
                 {
-                    Instantiate(monsters[Random.Range(0, monsters.Length)], new Vector3(justSpawnedTreasure.transform.position.x + Random.Range(1, 2), justSpawnedTreasure.transform.position.y + Random.Range(1, 2)), Quaternion.identity);
+                    if (t_monster == null)
+                    {
+                        t_monster = Instantiate(monsters[Random.Range(0, monsters.Length)], new Vector3(justSpawnedTreasure.transform.position.x + Random.Range(1, 2), justSpawnedTreasure.transform.position.y + Random.Range(1, 2)), Quaternion.identity);
+                    }
+                    else
+                    {
+                        t_monster = Instantiate(monsters[Random.Range(0, monsters.Length)], new Vector3(t_monster.transform.position.x + Random.Range(1, 2), t_monster.transform.position.y + Random.Range(1, 2)), Quaternion.identity);
+                    }
                     totalMonsters++;
                 }
 
                 totalTreasures++;
-
+                t_monster = null;
             }
 
-
-            loadingImage.SetActive(false);
+            setUpPlayerPrefs();
+            loadingCanvas.gameObject.SetActive(false);
             Looter.SetActive(true);
 
-            setUpPlayerPrefs();
+        
 
             ResizePathFinder();
             Player.SetActive(true);
-            gui.gameObject.SetActive(true);
+           
             Camera.main.GetComponent<Snapping>().player = Player;
+            gui.gameObject.SetActive(true);
         }
 
 
@@ -114,7 +124,14 @@ public class GameController : Keep
         {
 
             winText.SetActive(true);
-            LoadLevelAfterDelay(7f);
+           // LoadLevelAfterDelay(7f);
+        }
+
+        if (!loading && PlayerPrefs.GetInt("playerHP") <= 0)
+        {
+
+            loseText.SetActive(true);
+         //   LoadLevelAfterDelay(7f);
         }
 
     }

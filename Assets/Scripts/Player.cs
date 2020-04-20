@@ -19,7 +19,7 @@ public class Player : Keep
     public override void Start()
     {
         base.Start();
-
+        PlayerPrefs.SetInt("InBattle", 0);
 
         mainCamera = Camera.main;
         spriteRenderer = GetComponent<SpriteRenderer>();
@@ -29,10 +29,14 @@ public class Player : Keep
     // Update is called once per frame
     void Update()
     {
-        Vector3 horizontal = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
-        transform.position = transform.position + horizontal * Time.deltaTime * speed;
+        if(PlayerPrefs.GetInt("InBattle") == 0)
+        {
+            Vector3 horizontal = new Vector3(Input.GetAxis("Horizontal"), Input.GetAxis("Vertical"), 0.0f);
+            transform.position = transform.position + horizontal * Time.deltaTime * speed;
 
-        spriteRenderer.flipX = (Input.GetAxisRaw("Horizontal") > 0);
+            spriteRenderer.flipX = (Input.GetAxisRaw("Horizontal") > 0);
+        }
+
 
 
 

@@ -27,7 +27,7 @@ public class Unit : MonoBehaviour
     public bool TakeDamage(int dmg)
     {
         currentHP -= dmg;
-        GameObject.FindObjectOfType<ShakeBehavior>().TriggerShake();
+        
 
         if (currentHP <= 0)
             return true;

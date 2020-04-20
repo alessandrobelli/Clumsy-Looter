@@ -61,11 +61,12 @@ public class BattleSystem : MonoBehaviour
         enemyUnit.unitName = PlayerPrefs.GetString("monsterName");
         enemyUnit.damage = PlayerPrefs.GetInt("monsterAttack");
         enemyUnit.unitLevel = PlayerPrefs.GetInt("monsterLevel");
-        enemyUnit.currentHP = enemyUnit.maxHP;
+        enemyUnit.currentHP = PlayerPrefs.GetInt("monsterHP");
+        enemyUnit.maxHP = PlayerPrefs.GetInt("monsterHP");
 
         playerUnit.currentHP = PlayerPrefs.GetInt("playerHP");
 
-        dialogueText.text = "A wild " + enemyUnit.unitName + " approaches...";
+        dialogueText.text = "This " + enemyUnit.unitName + " is disgusting!";
 
         playerHUD.SetHUD(playerUnit);
         enemyHUD.SetHUD(enemyUnit);
@@ -77,20 +78,22 @@ public class BattleSystem : MonoBehaviour
 
     IEnumerator PlayerAttack()
     {
+        GameObject.FindObjectOfType<ShakeBehavior>().TriggerShake();
         bool isDead = enemyUnit.TakeDamage(playerUnit.damage);
 
         enemyHUD.SetHP(enemyUnit.currentHP);
-        dialogueText.text = "The attack is successful!";
+        dialogueText.text = "You striked "+enemyUnit.unitName+"!";
 
         audioPlayer.PlayOneShot(attack);
         yield return new WaitForSeconds(2f);
 
         if (isDead)
         {
+            audioPlayer.PlayOneShot(monsterDead);
             state = BattleState.WON;
             isDoingSomething = false;
-            audioPlayer.PlayOneShot(monsterDead);
-            Invoke("EndBattle", 0.8f);
+            dialogueText.text = "You won the battle!";
+            Invoke("EndBattle", 1f);
         }
         else
         {
@@ -106,14 +109,15 @@ public class BattleSystem : MonoBehaviour
         while (state == BattleState.ENEMYTURN)
         {
             audioPlayer.PlayOneShot(attack);
-            playerHUD.SetHP(playerUnit.currentHP);
+            GameObject.FindObjectOfType<ShakeBehavior>().TriggerShake();
+            
             isDoingSomething = true;
             dialogueText.text = enemyUnit.unitName + " attacks!";
 
-            yield return new WaitForSeconds(1.5f);
+            yield return new WaitForSeconds(0.5f);
 
             bool isDead = playerUnit.TakeDamage(enemyUnit.damage);
-
+            playerHUD.SetHP(playerUnit.currentHP);
 
             if (isDead)
             {
@@ -132,16 +136,15 @@ public class BattleSystem : MonoBehaviour
 
     void EndBattle()
     {
-        Camera.main.GetComponent<AudioSource>().Play();
+        
         if (state == BattleState.WON)
         {
-            dialogueText.text = "You won the battle!";
+            Camera.main.GetComponent<AudioSource>().Play();
+            
             isDoingSomething = false;
+            resetPlayerPrefs();
 
-            PlayerPrefs.DeleteKey("monsterName");
-            PlayerPrefs.DeleteKey("monsterAttack");
-            PlayerPrefs.DeleteKey("monsterLevel");
-            PlayerPrefs.DeleteKey("monsterPrefab");
+            PlayerPrefs.SetInt("InBattle", 0);
             PlayerPrefs.SetInt("playerHP", playerUnit.currentHP);
             GameObject.Find("Looter").GetComponent<Looter>().CurrentHealth = playerUnit.currentHP;
             GameObject.Find("Hero").GetComponent<Player>().killedMonsters++;
@@ -164,6 +167,15 @@ public class BattleSystem : MonoBehaviour
             SceneManager.UnloadSceneAsync("GameScene");
             SceneManager.LoadScene(0);
         }
+    }
+
+    private static void resetPlayerPrefs()
+    {
+        PlayerPrefs.DeleteKey("monsterName");
+        PlayerPrefs.DeleteKey("monsterAttack");
+        PlayerPrefs.DeleteKey("monsterLevel");
+        PlayerPrefs.DeleteKey("monsterPrefab");
+        PlayerPrefs.DeleteKey("monsterHP");
     }
 
     void PlayerTurn()

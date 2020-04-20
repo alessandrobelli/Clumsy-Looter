@@ -20,8 +20,10 @@ public class Looter : Keep
         pathfinding = GetComponent<Pathfinding.AIDestinationSetter>();
         InvokeRepeating("FindClosestTreasure", 0f, 3f);
 
-        CurrentHealth = MaxHealth;
+        
 
+        CurrentHealth = MaxHealth;
+        PlayerPrefs.SetInt("playerHP", CurrentHealth);
         audioPlayer = gameObject.GetComponent<AudioSource>();
 
     }
@@ -38,6 +40,9 @@ public class Looter : Keep
             transform.localScale = new Vector3(1f, transform.localScale.y, transform.localScale.z);
 
         }
+
+
+
 
 
 
