@@ -30,3 +30,5 @@ I don't think it's fair to be rated in sounds. Our Sound designer/Musician dropp
 First ever experience for @hohse in Game Jam, and this is my third game ever programmed.
 
 With this gamejam I really wanted to try out turn based battles and I hope you can enjoy a bit this game!
+
+Try the game: https://alessandrobelli.github.io/Clumsy-Looter/
