@@ -12,9 +12,9 @@ Turn Based battle against horrible monsters.
 ## .Credits.
 I don't think it's fair to be rated in sounds. Our Sound designer/Musician dropped the day before the start and I had to gather all of them. Hope they're enjoyable.
 
-- **Programming and damaged Chris sound**: Alessandro Belli (@Naghen). http://twitter.com/ale_belli90
+- **Programming and damaged Chris sound**: Alessandro Belli 
 
-- **Illustration and Pixel Art**: Florian Hohmann (@hohse). https://twitter.com/hohse
+- **Illustration and Pixel Art**: Florian Hohmann
 
 ### Free stuff used.
 
